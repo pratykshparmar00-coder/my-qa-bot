@@ -160,7 +160,7 @@ export default function App() {
 
       <div className="flex flex-col flex-1 overflow-hidden">
         {/* Header */}
-        <header className="flex items-center justify-between px-6 py-3 border-b border-border bg-card/80 backdrop-blur-sm shrink-0">
+        <header className="flex items-center justify-between px-6 py-3 border-b border-border bg-card shrink-0">
           <div className="flex items-center gap-4">
             <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground font-bold text-xs">
               QA
@@ -214,7 +214,7 @@ export default function App() {
         </header>
 
         {/* URL Bar */}
-        <div className="flex items-center gap-4 px-6 py-2.5 border-b border-border bg-card/40 shrink-0">
+        <div className="flex items-center gap-4 px-6 py-2.5 border-b border-border bg-card shrink-0">
           <div className="flex items-center gap-2">
             <span className="text-[10px] text-muted-foreground uppercase tracking-widest">Suite</span>
             <input value={testName} onChange={(e) => setTestName(e.target.value)}
@@ -236,7 +236,7 @@ export default function App() {
         </div>
 
         {/* Tabs */}
-        <div className="flex border-b border-border shrink-0 bg-card/40 px-2 pt-1">
+        <div className="flex border-b border-border shrink-0 bg-card px-2 pt-1">
           {(["builder", "results", "ai", "history"] as const).map((tab) => (
             <button key={tab} onClick={() => setActiveTab(tab)}
               className={`px-5 py-2 text-xs font-bold tracking-widest uppercase transition-all border-b-2 rounded-t-md mr-1 ${activeTab === tab
@@ -283,7 +283,7 @@ export default function App() {
 
                 {history.map((entry) => (
                   <div key={entry.id}
-                    className="flex items-center gap-4 p-4 bg-card/50 border border-border rounded-xl hover:border-primary/30 transition-all cursor-pointer group"
+                    className="flex items-center gap-4 p-4 bg-card border border-border rounded-xl hover:border-primary/30 transition-all cursor-pointer group"
                     onClick={() => { setResults(entry.results); setActiveTab("results"); }}>
                     <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-sm font-bold border ${entry.failed === 0
                         ? "bg-green-500/10 border-green-500/30 text-green-400"
@@ -313,7 +313,7 @@ export default function App() {
             )}
             {activeTab === "ai" && (
               <div className="space-y-4 max-w-2xl">
-                <div className="border border-border rounded-xl p-5 bg-card/50">
+                <div className="border border-border rounded-xl p-5 bg-card">
                   <h2 className="text-sm font-bold tracking-widest text-primary mb-1">◎ AI TEST GENERATOR</h2>
                   <p className="text-xs text-muted-foreground mb-4">Describe what to test in plain English.</p>
                   <textarea value={aiPrompt} onChange={(e) => setAiPrompt(e.target.value)} rows={4}
@@ -324,11 +324,11 @@ export default function App() {
                   </Button>
                 </div>
                 {aiResponse && (
-                  <div className={`border rounded-xl p-4 text-xs ${aiResponse.startsWith("✅") ? "border-primary/30 bg-primary/5 text-primary" : "border-border bg-card/50"}`}>
+                  <div className={`border rounded-xl p-4 text-xs ${aiResponse.startsWith("✅") ? "border-primary/30 bg-primary/5 text-primary" : "border-border bg-card"}`}>
                     {aiResponse}
                   </div>
                 )}
-                <div className="border border-border rounded-xl p-4 bg-card/30">
+                <div className="border border-border rounded-xl p-4 bg-card">
                   <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold mb-3">💡 Example Prompts</p>
                   {[
                     "Test homepage loads and hero heading is visible",

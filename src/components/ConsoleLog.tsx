@@ -27,12 +27,12 @@ export function ConsoleLog({ logs }: Props) {
   };
 
   return (
-    <div className="w-72 border-l border-border flex flex-col shrink-0 relative bg-card/20 backdrop-blur-sm">
+    <div className="w-72 border-l border-border flex flex-col shrink-0 relative bg-card">
       {/* Top glow line */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
 
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-card/40">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-card">
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-primary" />
           <span className="text-[10px] font-bold tracking-[0.15em] text-primary uppercase">Console</span>
@@ -67,7 +67,7 @@ export function ConsoleLog({ logs }: Props) {
       </div>
 
       {/* Footer */}
-      <div className="px-4 py-2 border-t border-border bg-card/40">
+      <div className="px-4 py-2 border-t border-border bg-card">
         <div className="flex items-center gap-1.5">
           <span className="text-primary text-xs animate-blink">▋</span>
           <span className="text-[10px] text-muted-foreground">

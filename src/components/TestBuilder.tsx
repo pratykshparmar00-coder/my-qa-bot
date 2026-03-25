@@ -76,7 +76,7 @@ export function TestBuilder({ steps, setSteps }: Props) {
 
       {/* Empty state */}
       {steps.length === 0 && (
-        <div className="border border-dashed border-border rounded-xl p-16 text-center bg-card/20">
+        <div className="border border-dashed border-border rounded-xl p-16 text-center bg-card">
           <div className="text-4xl mb-4 opacity-30">⚙</div>
           <p className="text-sm text-muted-foreground font-bold tracking-wider">NO STEPS CONFIGURED</p>
           <p className="text-xs text-muted-foreground mt-2">Click ADD STEP or use AI Generate</p>
@@ -90,7 +90,7 @@ export function TestBuilder({ steps, setSteps }: Props) {
         const actionColor = ACTION_COLORS[step.action] || "";
         return (
           <div key={step.id}
-            className="group relative flex items-start gap-3 p-4 bg-card/50 border border-border rounded-xl hover:border-primary/30 transition-all animate-fade-in backdrop-blur-sm">
+            className="group relative flex items-start gap-3 p-4 bg-card border border-border rounded-xl hover:border-primary/30 transition-all animate-fade-in">
             {/* Left accent line */}
             <div className="absolute left-0 top-3 bottom-3 w-0.5 rounded-full bg-primary/20 group-hover:bg-primary/60 transition-all" />
 

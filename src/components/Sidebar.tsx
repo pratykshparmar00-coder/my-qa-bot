@@ -21,7 +21,7 @@ export function Sidebar({ suites, activeTab, setActiveTab, results, history }: P
   const failed = results.filter((r) => !r.passed).length;
 
   return (
-    <aside className="w-56 border-r border-border flex flex-col shrink-0 overflow-y-auto relative bg-card/30 backdrop-blur-sm">
+    <aside className="w-56 border-r border-border flex flex-col shrink-0 overflow-y-auto relative bg-card">
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent opacity-60" />
 
       <div className="px-4 py-5 border-b border-border">
