@@ -69,35 +69,47 @@ export default function App() {
     addLog(`🚀 Starting: "${testName}"`, "info");
     addLog(`🌐 Target: ${targetUrl}`, "info");
     addLog(`📋 Steps: ${steps.length}`, "info");
-    const newResults: TestResult[] = [];
-    for (let i = 0; i < steps.length; i++) {
-      if (abortRef.current) { addLog("⛔ Aborted.", "warn"); break; }
-      const step = steps[i];
-      await new Promise((r) => setTimeout(r, 600 + Math.random() * 400));
-      addLog(`▶ [${step.action.toUpperCase()}] ${step.selector || step.value || targetUrl}`, "info");
-      const passed = Math.random() > 0.25;
-      const duration = Math.floor(80 + Math.random() * 400);
-      const error = passed ? undefined : getRandomError(step.action);
-      if (passed) addLog(`  ✅ Passed in ${duration}ms`, "success");
-      else addLog(`  ❌ ${error}`, "error");
-      newResults.push({ id: step.id, step: i + 1, action: step.action, selector: step.selector, value: step.value, passed, duration, error });
-      setResults([...newResults]);
+
+    try {
+      const response = await fetch("http://localhost:3001/api/test/run", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ steps, targetUrl, suiteName: testName })
+      });
+      
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Failed to run tests");
+
+      const newResults = data.results as TestResult[];
+      setResults(newResults);
+
+      newResults.forEach((r) => {
+        addLog(`▶ [${r.action.toUpperCase()}] ${r.selector || r.value || targetUrl}`, "info");
+        if (r.passed) addLog(`  ✅ Passed in ${r.duration}ms`, "success");
+        else addLog(`  ❌ ${r.error}`, "error");
+      });
+
+      const p = data.passed;
+      const f = data.failed;
+      addLog(`━━━━━━━━━━━━━━━━━━━━━━`, "info");
+      addLog(`📊 ${p} passed · ${f} failed · ${data.total} total`, p === data.total ? "success" : "warn");
+
+      const entry: HistoryEntry = {
+        id: Date.now().toString(),
+        name: testName,
+        date: new Date().toLocaleString(),
+        passed: p,
+        failed: f,
+        total: data.total,
+        results: newResults,
+      };
+      setHistory((prev) => [entry, ...prev].slice(0, 20));
+      
+    } catch (err: any) {
+      addLog(`⛔ Error: ${err.message}`, "error");
+    } finally {
+      setRunning(false);
     }
-    const p = newResults.filter((r) => r.passed).length;
-    const f = newResults.filter((r) => !r.passed).length;
-    addLog(`━━━━━━━━━━━━━━━━━━━━━━`, "info");
-    addLog(`📊 ${p} passed · ${f} failed · ${newResults.length} total`, p === newResults.length ? "success" : "warn");
-    setRunning(false);
-    const entry: HistoryEntry = {
-      id: Date.now().toString(),
-      name: testName,
-      date: new Date().toLocaleString(),
-      passed: p,
-      failed: f,
-      total: newResults.length,
-      results: newResults,
-    };
-    setHistory((prev) => [entry, ...prev].slice(0, 20));
   };
 
   const exportJSON = () => {
@@ -350,20 +362,4 @@ export default function App() {
       </div>
     </div>
   );
-}
-
-function getRandomError(action: string) {
-  const errors: Record<string, string[]> = {
-    click: ["Element not found", "Element not clickable", "Node detached"],
-    type: ["Cannot type into element", "Element disabled"],
-    assert_text: ["Expected 'Welcome' got 'Hello'", "Text mismatch"],
-    assert_visible: ["Element hidden", "No elements found"],
-    navigate: ["ERR_CONNECTION_REFUSED", "Navigation timeout"],
-    wait: ["Timeout waiting for element"],
-    hover: ["Cannot hover element"],
-    scroll: ["Scroll target not found"],
-    assert_url: ["URL mismatch"],
-  };
-  const list = errors[action] || ["Unexpected error"];
-  return list[Math.floor(Math.random() * list.length)];
 }

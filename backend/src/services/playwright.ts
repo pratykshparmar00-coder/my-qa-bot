@@ -31,12 +31,9 @@ export async function runTests(steps: TestStep[], targetUrl: string): Promise<Te
           break;
 
         case "assert_text":
-          const text = await page.textContent(step.selector, { timeout: 5000 });
-          if (step.assertion && text?.includes(step.assertion)) {
-            passed = true;
-          } else {
-            error = `Expected "${step.assertion}" but got "${text}"`;
-          }
+          if (!step.assertion) throw new Error("No assertion text provided");
+          await page.locator(step.selector).filter({ hasText: step.assertion }).waitFor({ state: "visible", timeout: 5000 });
+          passed = true;
           break;
 
         case "assert_visible":
@@ -45,12 +42,9 @@ export async function runTests(steps: TestStep[], targetUrl: string): Promise<Te
           break;
 
         case "assert_url":
-          const url = page.url();
-          if (url.includes(step.assertion)) {
-            passed = true;
-          } else {
-            error = `Expected URL to contain "${step.assertion}" but got "${url}"`;
-          }
+          if (!step.assertion) throw new Error("No assertion URL format provided");
+          await page.waitForURL((currentUrl) => currentUrl.toString().includes(step.assertion), { timeout: 5000 });
+          passed = true;
           break;
 
         case "wait":
@@ -89,6 +83,11 @@ export async function runTests(steps: TestStep[], targetUrl: string): Promise<Te
     });
 
     console.log(`  ${passed ? "✅" : "❌"} Step ${i + 1}: ${step.action} — ${duration}ms`);
+    
+    if (!passed) {
+      console.log("Stopping test suite early due to step failure.");
+      break;
+    }
   }
 
   await browser.close();
