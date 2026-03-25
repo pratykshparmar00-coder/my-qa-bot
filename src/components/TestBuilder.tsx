@@ -68,7 +68,7 @@ export function TestBuilder({ steps, setSteps }: Props) {
             onClick={() => setSteps([])}>
             ✕ CLEAR
           </Button>
-          <Button size="sm" className="text-xs h-8 font-bold tracking-wider glow" onClick={addStep}>
+          <Button size="sm" className="text-xs h-8 font-bold tracking-wider" onClick={addStep}>
             + ADD STEP
           </Button>
         </div>
@@ -80,7 +80,7 @@ export function TestBuilder({ steps, setSteps }: Props) {
           <div className="text-4xl mb-4 opacity-30">⚙</div>
           <p className="text-sm text-muted-foreground font-bold tracking-wider">NO STEPS CONFIGURED</p>
           <p className="text-xs text-muted-foreground mt-2">Click ADD STEP or use AI Generate</p>
-          <Button size="sm" className="mt-6 text-xs glow" onClick={addStep}>+ ADD FIRST STEP</Button>
+          <Button size="sm" className="mt-6 text-xs" onClick={addStep}>+ ADD FIRST STEP</Button>
         </div>
       )}
 

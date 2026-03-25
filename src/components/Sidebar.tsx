@@ -41,7 +41,7 @@ export function Sidebar({ suites, activeTab, setActiveTab, results, history }: P
         ].map((item) => (
           <button key={item.id} onClick={() => setActiveTab(item.id as any)}
             className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs transition-all mb-1 text-left relative overflow-hidden ${activeTab === item.id
-                ? "bg-primary/10 text-primary border border-primary/30 glow-border"
+                ? "bg-primary/10 text-primary border border-primary/30"
                 : "text-muted-foreground hover:bg-muted/30 hover:text-foreground border border-transparent"
               }`}>
             {activeTab === item.id && (

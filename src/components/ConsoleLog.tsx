@@ -34,7 +34,7 @@ export function ConsoleLog({ logs }: Props) {
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-card/40">
         <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-primary animate-glow-pulse" />
+          <span className="w-2 h-2 rounded-full bg-primary" />
           <span className="text-[10px] font-bold tracking-[0.15em] text-primary uppercase">Console</span>
         </div>
         <div className="flex items-center gap-2">

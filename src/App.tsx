@@ -162,7 +162,7 @@ export default function App() {
         {/* Header */}
         <header className="flex items-center justify-between px-6 py-3 border-b border-border bg-card/80 backdrop-blur-sm shrink-0">
           <div className="flex items-center gap-4">
-            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground font-bold text-xs animate-glow-pulse">
+            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground font-bold text-xs">
               QA
             </div>
             <div>
@@ -202,12 +202,12 @@ export default function App() {
             </button>
 
             <div className="flex items-center gap-2 text-xs text-muted-foreground border border-border rounded-full px-3 py-1.5">
-              <span className={`w-2 h-2 rounded-full ${running ? "bg-yellow-400 animate-pulse" : "bg-primary animate-glow-pulse"}`} />
+              <span className={`w-2 h-2 rounded-full ${running ? "bg-yellow-400 animate-pulse" : "bg-primary"}`} />
               <span className={running ? "text-yellow-400" : "text-primary"}>{running ? "RUNNING" : "READY"}</span>
             </div>
 
             <Button size="sm" variant={running ? "destructive" : "default"} onClick={runTests}
-              className={`text-xs font-bold tracking-widest h-8 px-4 ${!running ? "glow" : ""}`}>
+              className={`text-xs font-bold tracking-widest h-8 px-4`}>
               {running ? "⛔ ABORT" : "▶ RUN TESTS"}
             </Button>
           </div>
@@ -319,7 +319,7 @@ export default function App() {
                   <textarea value={aiPrompt} onChange={(e) => setAiPrompt(e.target.value)} rows={4}
                     placeholder="e.g. Test the login flow: go to /login, type email and password, click submit, assert dashboard is visible..."
                     className="w-full bg-background border border-border rounded-lg px-4 py-3 text-xs text-foreground resize-none transition-all" />
-                  <Button onClick={generateWithAI} disabled={aiLoading} className="mt-3 text-xs font-bold tracking-widest h-8 glow">
+                  <Button onClick={generateWithAI} disabled={aiLoading} className="mt-3 text-xs font-bold tracking-widest h-8">
                     {aiLoading ? "⏳ GENERATING..." : "◎ GENERATE STEPS"}
                   </Button>
                 </div>
