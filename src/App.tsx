@@ -223,10 +223,7 @@ export default function App() {
 
             <Button size="sm" variant={running ? "destructive" : "default"} onClick={runTests}
               className={`text-xs font-bold tracking-widest h-8 px-4`}>
-              <button onClick={() => setIsDark(!isDark)}
-                className="w-8 h-8 rounded-lg border border-border flex items-center justify-center text-xs font-bold hover:border-primary hover:text-primary transition-all text-muted-foreground">
-                {isDark ? "LIGHT" : "DARK"}
-              </button>
+
 
               <div className="flex items-center gap-3 text-xs text-muted-foreground border border-border rounded-full px-3 py-1.5">
                 <span className={`w-2 h-2 rounded-full ${running ? "bg-yellow-400 animate-pulse" : "bg-primary animate-glow-pulse"}`} />
