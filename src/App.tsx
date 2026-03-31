@@ -33,11 +33,12 @@ export default function App() {
   const [history, setHistory] = useState<HistoryEntry[]>(() => {
     try { return JSON.parse(localStorage.getItem("qabot-history") || "[]"); } catch { return []; }
   });
-  const [suites] = useState([
-    { name: "Homepage Flow", passed: 5, failed: 1, total: 6 },
-    { name: "Auth Tests", passed: 8, failed: 0, total: 8 },
-    { name: "Form Validation", passed: 3, failed: 2, total: 5 },
-  ]);
+  const suites = history.slice(0, 5).map((h) => ({
+    name: h.name,
+    passed: h.passed,
+    failed: h.failed,
+    total: h.total,
+  }));
   const abortRef = useRef(false);
 
   useEffect(() => {
