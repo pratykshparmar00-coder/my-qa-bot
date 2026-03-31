@@ -7,6 +7,7 @@ COPY prisma ./prisma/
 
 RUN npm install
 RUN npx prisma generate
+RUN npx playwright install chromium
 
 COPY . .
 
