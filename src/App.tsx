@@ -71,7 +71,7 @@ export default function App() {
     addLog(`📋 Steps: ${steps.length}`, "info");
 
     try {
-      const response = await fetch("http://localhost:3001/api/test/run", {
+      const response = await fetch("https://my-qa-bot-production.up.railway.app/api/test/run", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ steps, targetUrl, suiteName: testName })
