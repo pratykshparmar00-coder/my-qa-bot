@@ -2,12 +2,13 @@ FROM mcr.microsoft.com/playwright:v1.58.2-jammy
 
 WORKDIR /app
 
+ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
+
 COPY package*.json ./
 COPY prisma ./prisma/
 
 RUN npm install
 RUN npx prisma generate
-RUN npx playwright install --with-deps chromium
 
 COPY . .
 
