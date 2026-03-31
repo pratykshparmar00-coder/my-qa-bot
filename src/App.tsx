@@ -214,14 +214,28 @@ export default function App() {
               {isDark ? "☀" : "◑"}
             </button>
 
-            <div className="flex items-center gap-2 text-xs text-muted-foreground border border-border rounded-full px-3 py-1.5">
-              <span className={`w-2 h-2 rounded-full ${running ? "bg-yellow-400 animate-pulse" : "bg-primary"}`} />
-              <span className={running ? "text-yellow-400" : "text-primary"}>{running ? "RUNNING" : "READY"}</span>
-            </div>
+            {running && (
+              <div className="flex items-center gap-2 text-xs border border-yellow-500/30 rounded-full px-3 py-1.5">
+                <span className="w-2 h-2 rounded-full bg-yellow-400 animate-pulse" />
+                <span className="text-yellow-400">RUNNING</span>
+              </div>
+            )}
 
             <Button size="sm" variant={running ? "destructive" : "default"} onClick={runTests}
               className={`text-xs font-bold tracking-widest h-8 px-4`}>
-              {running ? "⛔ ABORT" : "▶ RUN TESTS"}
+              <button onClick={() => setIsDark(!isDark)}
+                className="w-8 h-8 rounded-lg border border-border flex items-center justify-center text-xs font-bold hover:border-primary hover:text-primary transition-all text-muted-foreground">
+                {isDark ? "LIGHT" : "DARK"}
+              </button>
+
+              <div className="flex items-center gap-2 text-xs text-muted-foreground border border-border rounded-full px-3 py-1.5">
+                <span className={`w-2 h-2 rounded-full ${running ? "bg-yellow-400 animate-pulse" : "bg-primary animate-glow-pulse"}`} />
+              </div>
+
+              <Button size="sm" variant={running ? "destructive" : "default"} onClick={runTests}
+                className={`text-xs font-bold tracking-widest h-8 px-4 ${!running ? "glow" : ""}`}>
+                {running ? "⛔ ABORT" : "RUN TESTS"}
+              </Button>
             </Button>
           </div>
         </header>
