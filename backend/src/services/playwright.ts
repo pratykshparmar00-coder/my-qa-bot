@@ -4,7 +4,7 @@ import type { TestStep, TestResult } from "../types";
 export async function runTests(steps: TestStep[], targetUrl: string): Promise<TestResult[]> {
   const browser = await chromium.launch({
     headless: true,
-    executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || undefined,
+    executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || chromium.executablePath(),
   });
   const context = await browser.newContext();
   const page = await context.newPage();
