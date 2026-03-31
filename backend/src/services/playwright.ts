@@ -2,7 +2,10 @@ import { chromium } from "playwright";
 import type { TestStep, TestResult } from "../types";
 
 export async function runTests(steps: TestStep[], targetUrl: string): Promise<TestResult[]> {
-  const browser = await chromium.launch({ headless: true });
+  const browser = await chromium.launch({
+    headless: true,
+    executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || undefined,
+  });
   const context = await browser.newContext();
   const page = await context.newPage();
   const results: TestResult[] = [];
@@ -83,7 +86,7 @@ export async function runTests(steps: TestStep[], targetUrl: string): Promise<Te
     });
 
     console.log(`  ${passed ? "✅" : "❌"} Step ${i + 1}: ${step.action} — ${duration}ms`);
-    
+
     if (!passed) {
       console.log("Stopping test suite early due to step failure.");
       break;
