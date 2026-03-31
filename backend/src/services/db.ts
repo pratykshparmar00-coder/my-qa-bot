@@ -12,21 +12,31 @@ interface SaveResultParams {
 }
 
 export async function saveResult(params: SaveResultParams) {
-  return await prisma.testSuite.create({
-    data: {
-      suiteName: params.suiteName,
-      targetUrl: params.targetUrl,
-      passed: params.passed,
-      failed: params.failed,
-      total: params.total,
-      results: JSON.stringify(params.results),
-    },
-  });
+  try {
+    return await prisma.testSuite.create({
+      data: {
+        suiteName: params.suiteName,
+        targetUrl: params.targetUrl,
+        passed: params.passed,
+        failed: params.failed,
+        total: params.total,
+        results: JSON.stringify(params.results),
+      },
+    });
+  } catch (err) {
+    console.warn("⚠ DB save failed (non-fatal):", err);
+    return null;
+  }
 }
 
 export async function getHistory() {
-  return await prisma.testSuite.findMany({
-    orderBy: { createdAt: "desc" },
-    take: 20,
-  });
+  try {
+    return await prisma.testSuite.findMany({
+      orderBy: { createdAt: "desc" },
+      take: 20,
+    });
+  } catch (err) {
+    console.warn("⚠ DB fetch failed:", err);
+    return [];
+  }
 }

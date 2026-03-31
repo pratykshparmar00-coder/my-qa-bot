@@ -76,7 +76,7 @@ export default function App() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ steps, targetUrl, suiteName: testName })
       });
-      
+
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "Failed to run tests");
 
@@ -104,7 +104,7 @@ export default function App() {
         results: newResults,
       };
       setHistory((prev) => [entry, ...prev].slice(0, 20));
-      
+
     } catch (err: any) {
       addLog(`⛔ Error: ${err.message}`, "error");
     } finally {
@@ -252,8 +252,8 @@ export default function App() {
           {(["builder", "results", "ai", "history"] as const).map((tab) => (
             <button key={tab} onClick={() => setActiveTab(tab)}
               className={`px-5 py-2 text-xs font-bold tracking-widest uppercase transition-all border-b-2 rounded-t-md mr-1 ${activeTab === tab
-                  ? "border-primary text-primary bg-primary/5"
-                  : "border-transparent text-muted-foreground hover:text-foreground hover:bg-muted/30"
+                ? "border-primary text-primary bg-primary/5"
+                : "border-transparent text-muted-foreground hover:text-foreground hover:bg-muted/30"
                 }`}>
               {tab === "builder" ? "⚙ Builder"
                 : tab === "results" ? `◈ Results${results.length ? ` (${results.filter(r => r.passed).length}/${results.length})` : ""}`
@@ -298,8 +298,8 @@ export default function App() {
                     className="flex items-center gap-4 p-4 bg-card border border-border rounded-xl hover:border-primary/30 transition-all cursor-pointer group"
                     onClick={() => { setResults(entry.results); setActiveTab("results"); }}>
                     <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-sm font-bold border ${entry.failed === 0
-                        ? "bg-green-500/10 border-green-500/30 text-green-400"
-                        : "bg-red-500/10 border-red-500/30 text-red-400"
+                      ? "bg-green-500/10 border-green-500/30 text-green-400"
+                      : "bg-red-500/10 border-red-500/30 text-red-400"
                       }`}>
                       {entry.failed === 0 ? "✓" : "!"}
                     </div>
@@ -312,8 +312,8 @@ export default function App() {
                       {entry.failed > 0 && <span className="text-red-500 font-bold">{entry.failed}✗</span>}
                       <span className="text-muted-foreground">{entry.total} steps</span>
                       <span className={`px-2 py-1 rounded-md font-bold border text-[10px] ${entry.failed === 0
-                          ? "bg-green-500/10 border-green-500/20 text-green-400"
-                          : "bg-red-500/10 border-red-500/20 text-red-400"
+                        ? "bg-green-500/10 border-green-500/20 text-green-400"
+                        : "bg-red-500/10 border-red-500/20 text-red-400"
                         }`}>
                         {Math.round((entry.passed / entry.total) * 100)}%
                       </span>
